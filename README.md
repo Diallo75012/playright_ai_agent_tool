@@ -1,3 +1,13 @@
+# Chikara Houses:[website demo](https://chikarahouses.com)
+Using this real website in order to test agent using browser.
+Demo of own AI Agents are interacting witht he web using `playright` `python`.
+Here we go in a product page, we add to cart and we get a message entered int he order 'special' messages.
+We get as a result a JSON output but hte best is the screenshot showing that agents are using screenshots
+only for targeted actions and not all the time as too costly in terms of token and dollars paid.
+So screenshot are done if `panic!` error for the AI Agent to check or at the end to validate.
+But not as I thought on every single actions....
+
+
 # install
 ```bash
 pip install pytest-playwright
