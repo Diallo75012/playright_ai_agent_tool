@@ -1,0 +1,15 @@
+# .gitignore
+__pycache__/
+*.pyc
+.venv/
+.env
+demo.db
+
+# demo artifacts/work dirs (kept in repo for easy discovery, but ignore contents)
+artifacts/*
+docker_work/*
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

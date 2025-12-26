@@ -1,0 +1,2 @@
+groq>=0.12.0
+flask[async]>=3.0.0

@@ -1,0 +1,105 @@
+<!-- templates/index.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Shibuya Tokyo Cyberpunk — DOM-First Browser Agent</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+	<header class="hdr" role="banner">
+		<div class="hdr__title">Shibuya Tokyo Cyberpunk — DOM-First Browser Agent</div>
+		<div class="hdr__sub">
+			Planner (Groq: <span class="pill">{{ groq_text_model }}</span>) →
+			Executor (Docker: <span class="pill">{{ executor_image }}</span>) →
+			Evidence (final screenshot + short DOM preview)
+		</div>
+	</header>
+
+	<main class="grid" role="main" aria-label="One page demo UI">
+		<section class="card" aria-label="Planner">
+			<div class="card__hd">
+				<h2>Planner</h2>
+				<div class="meta">
+					Vision default: <span class="pill">{{ groq_vision_model }}</span>
+				</div>
+			</div>
+
+			<div class="card__body scroll">
+				<label class="lbl" for="goal">User goal</label>
+				<textarea id="goal" class="ta" spellcheck="false"
+					placeholder="Add ZenPath Hardcover Goal Notebook 3 to cart, view cart, and add a note in Order special instructions (no checkout)."></textarea>
+
+				<div class="row">
+					<div class="row__col">
+						<label class="lbl" for="noteText">Order special instructions
+							text</label>
+						<input id="noteText" class="in"
+							value="Shibuya Tokyo Cyberpunk demo note." />
+					</div>
+				</div>
+
+				<div class="row">
+					<button id="btnPlan" class="btn">Generate plan</button>
+					<button id="btnRun" class="btn" disabled>Run in Docker</button>
+					<div id="status" class="status" aria-live="polite"></div>
+				</div>
+
+				<div class="sep"></div>
+
+				<div class="small">Plan JSON (ONLY 3 tools: go, click, type)</div>
+				<pre id="plan" class="pre" aria-label="Planner output"></pre>
+			</div>
+		</section>
+
+		<section class="card" aria-label="Executor Output">
+			<div class="card__hd">
+				<h2>Executor Output</h2>
+				<div class="meta">Artifacts: <span class="pill">./artifacts</span></div>
+			</div>
+
+			<div class="card__body scroll">
+				<div class="kv" role="group" aria-label="Run summary">
+					<div class="kv__k">run_id</div>
+					<div class="kv__v" id="runId">—</div>
+					<div class="kv__k">final_screenshot</div>
+					<div class="kv__v" id="finalShot">—</div>
+					<div class="kv__k">final_url</div>
+					<div class="kv__v" id="finalUrl">—</div>
+					<div class="kv__k">vision_summary</div>
+					<div class="kv__v" id="visionSummary">—</div>
+				</div>
+
+				<div class="sep"></div>
+
+				<div class="small">Final DOM preview (truncated)</div>
+				<pre id="dom" class="pre" aria-label="Final DOM preview"></pre>
+
+				<div class="sep"></div>
+
+				<div class="small">Steps</div>
+				<pre id="steps" class="pre" aria-label="Step results"></pre>
+
+				<div class="sep"></div>
+
+				<div class="small">Docker logs (tail)</div>
+				<pre id="logs" class="pre" aria-label="Docker logs"></pre>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		window.__CFG__ = {
+			defaultProductUrl: {{default_product_url | tojson}},
+		groqTextModel: {{groq_text_model | tojson}},
+		groqVisionModel: {{groq_vision_model | tojson}},
+		executorImage: {{executor_image | tojson}},
+    };
+	</script>
+	<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
